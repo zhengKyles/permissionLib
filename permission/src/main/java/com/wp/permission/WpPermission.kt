@@ -15,5 +15,6 @@ enum class WpPermission(var permission: String) {
     ACCESS_COARSE_LOCATION(Manifest.permission.ACCESS_COARSE_LOCATION),
     READ_PHONE_STATE(Manifest.permission.READ_PHONE_STATE),
     CAMERA(Manifest.permission.CAMERA),
-    CALL_PHONE(Manifest.permission.CALL_PHONE)
+    CALL_PHONE(Manifest.permission.CALL_PHONE),
+    SYSTEM_ALERT_WINDOW(Manifest.permission.SYSTEM_ALERT_WINDOW)
 }

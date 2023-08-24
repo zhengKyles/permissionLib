@@ -1,7 +1,10 @@
 package com.wp.permission
 
+import android.annotation.TargetApi
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.provider.Settings
 import androidx.fragment.app.FragmentActivity
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -62,4 +65,27 @@ object PermissionManager {
         activity.startActivity(intent)
     }
 
+
+    fun hasSystemAlertPermission(context: Context): Boolean {
+        //检查是否已经授予权限
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Settings.canDrawOverlays(context)
+        } else {
+            true
+        }
+    }
+
+    //请求悬浮窗权限
+    @TargetApi(Build.VERSION_CODES.M)
+    private fun getOverlayPermission(context: Context) {
+        val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
+        intent.data = Uri.parse("package:" + context.packageName)
+        context.startActivity(intent)
+    }
+    fun requestSystemAlertPermission(context: Context) {
+        if (hasSystemAlertPermission(context)) {
+        } else {
+            getOverlayPermission(context)
+        }
+    }
 }
